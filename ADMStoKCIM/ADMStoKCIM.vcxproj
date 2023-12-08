@@ -121,7 +121,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>_WINDOWS;_DEBUG;_AFXEXT;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_WINDOWS;_DEBUG;_AFXEXT;_CRT_SECURE_NO_WARNINGS;_TESTDEV;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PrecompiledHeaderFile>stdafx.h</PrecompiledHeaderFile>
       <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
@@ -201,6 +201,7 @@
     <ClCompile Include="CADMStoKCIMDlg.cpp" />
     <ClCompile Include="CConv_DL_Info.cpp" />
     <ClCompile Include="CEQ_MESH_NO2.cpp" />
+    <ClCompile Include="CLnsec_Ter.cpp" />
     <ClCompile Include="dllmain.cpp">
       <CompileAsManaged Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</CompileAsManaged>
       <CompileAsManaged Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</CompileAsManaged>
@@ -225,11 +226,13 @@
     <None Include="res\ADMStoKCIM.rc2" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\ADMStoKCIM_Convert\framework.h" />
     <ClInclude Include="ADMS.h" />
     <ClInclude Include="Branch.h" />
     <ClInclude Include="CADMStoKCIMDlg.h" />
     <ClInclude Include="CConv_DL_Info.h" />
     <ClInclude Include="CEQ_MESH_NO2.h" />
+    <ClInclude Include="CLnsec_Ter.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="Node.h" />
     <ClInclude Include="Resource.h" />

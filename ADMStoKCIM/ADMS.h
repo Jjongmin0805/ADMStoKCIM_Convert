@@ -30,20 +30,19 @@ typedef struct _AVM_DYN_UIN
 } AVM_DYN_UIN;
 #define								AVM_DYN_UIN_SIZE						sizeof( AVM_DYN_UIN )
 
-
-// Table : BOF_STA, Type : Online
+//BOF.h 파일에 구조체 생성
 typedef struct _BOF_STA
 {
-	wchar_t							bof_nm[64];						// 지점(Branch Office) 명
-	wchar_t							bof_officeid[64];				// Branch Office의 ID
-	int								bof_ii_center;					// BOF의 CENTER로의 Indirect index
-	int								bof_si_center;					// BOF의 CENTER로의 Sibling index
-	int								bof_hi_dl;						// BOF에서 SS로의 head index
+	wchar_t							bof_nm[64];																// 지점(Branch Office) 명
+	wchar_t							bof_officeid[64];														// Branch Office의 ID
+	int								bof_ii_center;															// BOF의 CENTER로의 Indirect index
+	int								bof_si_center;															// BOF의 CENTER로의 Sibling index
+	int								bof_hi_dl;																// BOF에서 SS로의 head index
 	int								bof_AREA_BASE_CODE;
 
-	int								var_reser1;						// 예약 변수1
-	int								var_reser2;						// 예약 변수2
-	int								var_reser3;						// 예약 변수3
+	int								var_reser1;																// 예약 변수1
+	int								var_reser2;																// 예약 변수2
+	int								var_reser3;																// 예약 변수3
 
 	int								nBOF_OFFICE_TYPE;
 } BOF_STA;
@@ -398,7 +397,15 @@ typedef struct _GENUNIT_STA
 	wchar_t							GENUNIT_II_EQU_ID[64];					// 20220809
 	int								GENUNIT_II_NAME_TYPE_FK;
 	int								GENUNIT_INDEX;
-	
+	int								GENUNIT_CONNECTION_TR_TYPE;
+
+
+	int								GENUNIT_LVRTXGROUP_FLAG;
+	int								GENUNIT_PUBXGROUP_FLAG;
+	int								GENUNIT_PUBOGROUP_FLAG;
+	int								GENUNIT_CACGROUP_FLAG;
+	int								GENUNIT_MANOGROUP_FLAG;
+	int								GENUNIT_MANXGROUP_FLAG;
 
 } GENUNIT_STA;
 #define								GENUNIT_STA_SIZE						sizeof( GENUNIT_STA )
@@ -413,6 +420,8 @@ typedef struct _GEN_STA
 	int								gen_si_gnd;					// GEN에서 GND로의 sibling index
 	int								gen_ii_gnd;					// GEN에서 GND로의 indirect index
 	int								gen_ii_ij;					// GEN에서 IJ로의 indirect index
+	int								GEN_SI_LNSEC;					// GEN에서 GND로의 indirect index
+	int								GEN_II_LNSEC;					// GEN에서 IJ로의 indirect index
 	double							gen_namkv;					// Gen의 기기 명판전압
 	double							gen_mwlmmx;					// 최대 MW 발전용량(설비용량 기준)
 	double							gen_mwlmmn;					// 최소 MW 발전용량(설비용량 기준)
@@ -636,6 +645,7 @@ typedef struct _LNSEC_STA
 	int								lnsec_hi_fpole;					// LNSEC에서 from쪽 POLE로의 HEAD index
 	int								lnsec_hi_tpole;					// LNSEC에서 to쪽 POLE로의 HEAD index
 	int								lnsec_hi_innersec;					// LNSEC에서 INNERSEC로의 HEAD index
+	int								LNSEC_HI_GEN;					// LNSEC에서 INNERSEC로의 HEAD index
 	int								lnsec_privat;					// 선로의 전용선로 여부(1:전용선로, 0:일반선로)
 	int								lnsec_type_id;					// KASIM_CODE_LINETYPE참조
 	double							lnsec_length;					// 선로 긍장(km)

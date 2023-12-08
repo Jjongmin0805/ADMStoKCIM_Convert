@@ -13,8 +13,14 @@
 
 #include "PString.h"
 typedef								vector< CPString >						VECPSTR;
+typedef								hash_map< string, string >				HMAP_STR4STR;
+typedef								hash_map< string, wstring >				HMAP_STR4WSTR;
+typedef								hash_map< wstring, string >				HMAP_WSTR4STR;
+typedef								hash_map< wstring, wstring >			HMAP_WSTR4WSTR;
 typedef								hash_map< string, int >					HMAP_STR4INT;
+typedef								hash_map< wstring, int >				HMAP_WSTR4INT;
 typedef								hash_map< string, unsigned int >		HMAP_STR4UINT;
+typedef								hash_map< wstring, unsigned int >		HMAP_WSTR4UINT;
 typedef								hash_map< unsigned long long, unsigned int>					HMAP_ULL4UINT;
 typedef								hash_map< unsigned long long, unsigned long long>			HMAP_ULL4ULL;
 typedef								vector< string >						VECSTR;
@@ -62,3 +68,20 @@ typedef struct CallbackWndData
 	DWORD	m_PID;
 	HWND	m_hWnd;
 } CallbackWndData;
+
+struct NetworkAdapterInfor
+{
+	NetworkAdapterInfor() : m_dwID( 0 ), m_nType( 0 ), m_nStatus( -1 )
+	{
+		//
+	};
+
+	DWORD							m_dwID;
+	UINT							m_nType;
+	string							m_szName;
+	string							m_szDescription;
+	string							m_szAddress;
+	int								m_nStatus;
+};
+
+#define								DEF_NEW( var_new )											new var_new

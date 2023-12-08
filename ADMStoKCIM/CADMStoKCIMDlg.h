@@ -9,6 +9,8 @@
 #include "CConv_DL_Info.h"
 #include "CEQ_MESH_NO2.h"
 
+#include "CLnsec_Ter.h"
+
 // CADMStoKCIMDlg 대화 상자
 typedef CArray<HDOF_STA, HDOF_STA&> CHDOF_STA;
 typedef CArray<CENTER_STA, CENTER_STA&> CCENTER_STA;
@@ -55,6 +57,7 @@ typedef CArray<PRDE_STA, PRDE_STA&> CPRDE_STA;
 //20210907
 typedef CArray<GENUNIT_STA, GENUNIT_STA&> CGENUNIT_STA;
 
+//typedef AFX_EXT_CLASS CArray<CString, CString&> CStringArray;
 
 class AFX_EXT_CLASS CADMStoKCIMDlg : public CDialogEx
 {
@@ -77,24 +80,19 @@ protected:
 
 protected:
 	HICON m_hIcon;
-
-	CDatabase		m_ADMSDB;
-	CDatabase		m_ADMSCDDB;
-
-	CNodeArray			m_pNodeArr;
-	CBranchArray		m_pBranchArr;
+	CNodeArray		m_pNodeArr;
+	CBranchArray	m_pBranchArr;
 	
 	CProgressCtrl	m_progress;
 
 	CString			m_szTime;
 	CString			m_szDataName_Data;
+
+	CLnsec_TerArray	m_Arry_Lnsec_Ter;
 public:
 	//DB이름 
 	CString			m_szADMSDB_Office, m_szADMSDB_Code;
-	CString			m_szCSV_Route;
-
-
-
+	CString			m_szCSV_Route;	   
 	CString			m_szADMS_Code;
 
 public:
@@ -103,39 +101,35 @@ public:
 	void			OnTimer(UINT_PTR nIDEvent);
 
 
+	////////////////////
 public:
-	void			ADMStoKCIM_Offic_Config( CString szDate );
-	void			ADMStoKCIM_Code_Config( CString szDate );
+	CStringArray	m_pArrayDL_EQC;
+
+public:
+
 	void			ADMStoKCIM_CSV_Route( CString szDate );
 	void			MakeDirectory();
-	void			MakeDiagram_LoasID(int m_nType);
-	void			MakeSymbol(int m_nDiagram_ID);
-	void			MakeDiagram(int m_nDiagram_ID);
-	void			MakeDiagram_Member();
+	void			MakeSymbol();
+	void			MakeDiagram(int nDiagram_ID);
 	void			MakeDiagram_HDOF(int nMember_ID);
 	void			RemoveAllData();
-	void			ADMStoKCIM_Config();
+
 	void			ADMStoKCIM_Read_CSV(); //vvm처리 
-	void			ADMStoKCIM_Read();
-	void			ADMStoKCIM_Convert();
+
 	void			DeleteAllFiles(CString dirName);
-	void			ADMStoKCIM_Insert();
+;
 	void			ADMStoKCIM_RemoveAll();
-	//20211025 변전소 만들기 추가 하는부분
-	void			MakeSubs();
+
 	void			ConvertWCtoC(CString str, char* ch); //형변환 문자열 cstring->char
 
 protected:
 	CBranch*		GetBranch(CString strMRID);
 	CNode*			GetNode(CString strMRID);
 	CNode*			GetNode_New(CString strMRID);
-	CNode*			GetNodeTER(CString strMRID);
 	CNode*			GetNodeTER_NEW(CBranch* pbranch);
+	CNode*			GetNodeTER_NEW_LNSEC(CBranch* pBranch);
 	CNode*			GetNodeTER_NEW_CB(CBranch* pbranch, CNode* pNode);
 	int				GetMasterCD(int nCeqTp, int nCircuit);
-	int				GetMasterCode(int nMst, int nCeqTp);
-	int				GetMasterCode_KASIM(int nMst, int nCeqTp);
-
 public:
 	int				GetCENTER_II_HDOF(int nDate);
 	int				GetBOF_II_CENTER(CString stDate);
@@ -143,28 +137,21 @@ public:
 	int				GetSNV_II_SS(CString stDate);
 	int				GetMTR_II_SS(CString stDate);
 	int				GetDL_II_MTR(CString stDate);
-	int				GetND_II_SNV(CString stDate);
-	int				GetND_II_SNV_NEW(CString stDate);
-	int				GetND_II_SNV_OCB(CString stDate);
-	int				GetND_II_SNV_OCB_MTR(CString stDate);
-	int				GetND_II_SNV_OCB_MTR_2(CString stDate);
-	int				GetND_II_SNV_BR(CString stDate);
-	int				GetND_II_SNV_2(int nDate);
-	int				GetTR_II_SS(CString stDate);
-	int				GetTR_II_FND(CString stDate);
-	int				GetTR_II_TND(CString stDate, int nDate);
+
 	int				GetDLID(CString stDate);
 	int				GetDLID_ORIGINAL(CString stDate);
 	int				GetDLID_OCB(CString stDate);
 	int				GetSSID(int nDate);
 	int				GetMTRID(int nDate);
-	void			GET_GENUNIT_STA(CString stDate, int nGENID);
+	int				GET_GENUNIT_STA_TR(CString stDate, int nGENID);
 	int				Get_OVERHEAD_CABLE(int nDate);
 	double			Get_POSR(float fDate, int nDate);
 	double			Get_POSX(float fDate, int nDate);
 	double			Get_ZERR(float fDate, int nDate);
 	double			Get_ZERX(float fDate, int nDate);
 
+	//20230919
+	int				Get_POWERCONTROL_FLAG_VALUES(int nTYPE, int nPOWERCONTROL_FLAG_VALUES);
 
 public:
 	//ACMDB
@@ -203,8 +190,6 @@ public:
 	CGENUNIT_STA			 m_arrGENUNIT;
 
 
-	//////////////
-	int						Get_CNFK_Check2(CString stDate);
 	int						SET_MTRND(int  nDLID);
 	int						SET_SSID(CString stDate);
 	int						SET_br_ii_fnd(CString stDate);
@@ -212,6 +197,7 @@ public:
 
 	void					PumpMessages();
 	void					IDC_LIST_DATA_HISTORY(CString  strData_Name);
+	void					IDC_LIST_DATA_HISTORY_ERROR(CString  strData_Name);
 
 	int m_nIJ_STA_EQU4;
 	int m_nIJ_STA_EQU6;
@@ -226,9 +212,6 @@ public:
 	int		m_nSTMODE_MEM_OFFICE_ID;
 	CString m_szSTMODE_MEM_OFFICE_NM;
 public:
-
-	////////////////////////
-	void Error_KASIM();
 
 
 	int GetSS_HI_SNV(int nDate);	   
@@ -245,7 +228,6 @@ public:
 	/////////////////////////////////////////
 
 	int						m_Custmer;
-	int						m_nDiagram_ID;
 	//ST모드 입력
 	int						m_nType;
 	int						m_nSTMode;
@@ -258,7 +240,9 @@ public:
 	CMap<CString, LPCTSTR, CString, LPCTSTR >m_map_Ter_CnCeq;
 	CMap<CString, LPCTSTR, CString, LPCTSTR >m_map_Ter_CnOriCeq;
 	CMap<CString, LPCTSTR, CString, LPCTSTR >m_map_Ter_CeqCn;
-	CMap<CString, LPCTSTR, int, int>m_map_Ter_CnID;
+	CMap<CString, LPCTSTR, CString, LPCTSTR>m_map_Ter_CnID;
+	CMap<CString, LPCTSTR, int, int>m_map_Ter_CNID_NAMETYPEFK;
+
 	CMap<CString, LPCTSTR, CString, LPCTSTR >m_map_CEQ_MridCHCeq;
 //	CMap<CString, LPCTSTR, CString, LPCTSTR >m_map_CEQ_MridOriCeq;
 	CMap<CString, LPCTSTR, CString, LPCTSTR >m_map_ND_CnCeq;
@@ -320,6 +304,7 @@ public:
 	CMap<int, int, int, int >m_map_DL_MTRID;
 	CMap<CString, LPCTSTR, int, int>m_map_ENG_EQC_TYPE;
 	CMap<CString, LPCTSTR, int, int>m_map_LNSEC_ND;
+	CMap<CString, LPCTSTR, int, int>m_map_LNSEC_GEN;
 	CMap<CString, LPCTSTR, int, int>m_map_CBSW_ND;
 	CMap<CString, LPCTSTR, int, int>m_map_GEN_STA_NULL;
 	CMap<CString, LPCTSTR, int, int>m_map_NEW_GEN_NDisnull; //GEN정보가 이상함 연결정보가 없으면!
@@ -337,30 +322,58 @@ public:
 	CConv_DL_InfoArray  m_pConv_DL_InfoArr;
 	void				Conv_DL_Info_Array(CString strCEQ_FK, CString strEQC_FK);
 	CString				GetEQC_MRFK(CString strEQC_FK);
+	
+	int					GET_GEN_II_LNSEC(int nData);
+
+	//
+	int				m_nDL_TEST;
+	CMap<CString, LPCTSTR, CString, LPCTSTR >m_map_Common_CB_Check; //공용선로 체크
+	CMap<CString, LPCTSTR, CString, LPCTSTR >m_map_Common_CB_FND; //공용선로 체크
+	CMap<CString, LPCTSTR, CString, LPCTSTR >m_map_Common_CB_TND; //공용선로 체크
+	CMap<CString, LPCTSTR, CString, LPCTSTR >m_map_Common_ND_CnCeq; //공용선로 체크
+	CMap<CString, LPCTSTR, CString, LPCTSTR >m_map_Common_MUSW_CN; //공용선로 체크
+
+	CMap<CString, LPCTSTR, int, int >m_map_Common_CBSW_MUSW; //공용선로 체크
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////ODBC 제외 함수 모음///////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-public:
+// 
+ public:
 	bool			ADMStoKASIM_Config();				//dbconfig 연결 정보 읽어 오는 부분
 	void			ADMStoKASIM_MYSQL();				//MYSQL DB 연결 하는 부분 
 	void			ADMStoKASIM_Read();					//ADMS Office 데이터를 읽어오는 부분 
-
+	void			ADMStoKASIM_Conver();				//ADMS 변환가기 
+	void			ADMStoKASIM_Insert();				//ADMS DB kAISM으로 저장 하기 
+	
 	int				GetInt_Row(char* chDate);				//MYSQL 받을데이터를 Row 데이터를 int 형으로변환
 	double			GetDouble_Row(char* chDate);			//MYSQL 받을데이터를 Row 데이터를 double 형으로변환
 	CString			GetCString_Row(char* chDate);			//MYSQL 받을데이터를 Row 데이터를 CString 형으로변환
-
+	
 	
 public:
 	MYSQL			*MYSQL_DB;
-
+	
 	CString			m_szMYSQL_Dbname;						//OFFICE 접속 DB이름
 	CString			m_szMYSQL_Userid;						//OFFICE 접속 아이디
 	CString			m_szMYSQL_Password;						//OFFICE 접속 비번
-	CString			m_szMYSQL_Failover;						//OFFICE 접속 주소
+	CString			m_szMYSQL_ServerIP;						//OFFICE 접속 주소
+	int				m_nMYSQL_Port;							//OFFICE 접속 주소
+	
+	int				m_nSTMODE_KASIM_Office_ID;
+	CString			m_szSTMODE_KASIM_Office_Ver;
+	CString			m_szSTMODE_KASIM_Office_Name;
+	
+	int				GetMasterCode_KASIM(int nMst, int nCeqTp);
+	void			GET_MULTISW_Check_KASIM(CString strMRID, int nType, CString stNAME, CString szALIAS_NAME, CString strCEQ, CString szMULTISW, int nMULTNUMBER); //다회로 처리때문에 만들어봅니다.
+	void			MakeDiagram_LoasID_KASIM(int m_nType);
+	void			MakeDiagram_Member_KASIM();
 
+	//20231208 추가내용 속도
+	int				Get_MRID_SNV(CString strMRID);
 
-
+	CMap<CString, LPCTSTR, CString, LPCTSTR >m_map_DL_EQC_VL_EQC;
+	CMap<CString, LPCTSTR, CString, LPCTSTR >m_map_VL_EQC_DL_EQC;
+	CMap<CString, LPCTSTR, CString, LPCTSTR >m_map_DL_CEQ_DL_EQC;
 };

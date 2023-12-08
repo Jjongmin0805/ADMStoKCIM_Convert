@@ -1,6 +1,7 @@
 #pragma once
 
 #define								KASIMINPUTFILE_DIRECTORY				"CSVFile"
+#define								KASIMINPUTFILE_DIRECTORY_STUDY			"CSVFile_Study"
 #define								KASIMSCHEMA_SMNAME_STA					"pkasimchemaname_sta"
 #define								KASIMSCHEMA_SMNAME_DYN					"pkasimchemaname_dyn"
 //#define								KASIMSCHEMA_SMNAME_DYN					"pkasimchemaname_dyn"
@@ -9,6 +10,8 @@
 
 #define								KASIMSCHEMA_TABLENAMEMAXSIZE			32
 #define								KASIMSCHEMA_FIELDNAMEMAXSIZE			64
+// DRM사용시 필요
+//#define								DRM_MODULE_DEFINE
 
 enum KASIMRDBINDEX
 {

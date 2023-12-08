@@ -76,7 +76,7 @@ public:
 	int								Insert( int nIndex, char* szInsertStr );
 	int								Erase( int nIndex, int nCount = 1 );
 
-	bool							SetTok_Parse( CPString szDIV = "," );
+	bool							SetTok_Parse( CPString szDIV = ",", bool bAddCR = true );
 	int								GetTok_Count();
 	CPString						GetTok_At( int nIndex );
 	void							SetTok_Release();

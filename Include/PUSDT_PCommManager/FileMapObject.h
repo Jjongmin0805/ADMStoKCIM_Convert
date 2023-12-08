@@ -20,6 +20,8 @@ public:
 	BOOL																						SetData( char* pDataBuff, unsigned int unSize );
 	BOOL																						SetData( unsigned int unMvPosition, char* pDataBuff, unsigned int unSize );
 	unsigned int																				GetSize();
+	void																						ResetData( unsigned int unSize );
+	void																						ResetData( unsigned int unMvPosition, unsigned int unSize );
 
 protected:
 	BOOL																						SetMapMemory_MAKE();

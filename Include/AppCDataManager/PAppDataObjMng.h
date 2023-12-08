@@ -151,6 +151,7 @@ public:
 	int																		RunLogDB_Download_AND_UpdateKASIM();		// Log DB에서 KASIM 데이터를 다운로드 받고, KASIM에 Update 모듈
 	void																	LoadKASIMSTLogID();							// 최근 저장된 DB의 Study Binary 압축파일 명칭
 	int																		MakeOfficeKASIM( unsigned int unOfficeCode );		// 사업소 코드에 해당하는 KASIM 생성
+	int																		MakeOfficeKASIM_Study( unsigned int unOfficeCode );
 	void																	SetStopExportCSVWork( bool bStopValue );			// export csv 파일 작업시 강제 중지 설정
 	bool																	GetStopExportCSVWork();					 // export csv 파일 작업시 강제 중지 여부 얻기
 	void																	SetDBLog_Delete();		// LogDB 테이블 데이터 삭제
@@ -199,7 +200,12 @@ public:
 	void																	SetKASIM_ASSERT_MODE( bool bMode );
 	bool																	GetKASIM_ASSERT_MODE();
 //	void Test_WriteDB();
-
+// 	bool																	CheckThisProcessStatus();
+// 	bool																	InitThisProcessStatus();
+#ifdef DRM_MODULE_DEFINE
+	void																	DoDRMKASIMInit();
+	bool																	DoDRMKASIMFiles();
+#endif
 
 protected:
 	void																	Clear_VarInfo();						// 스키마 필드의 변수 정보 제거
@@ -222,7 +228,6 @@ protected:
 	CPString																GetMakeName_SchemaData_DYN();		// KASIM Dynamic 스키마 데이터 얻기
 
 	static UINT WINAPI														ThreadWorks_WorkProcess( LPVOID pParam );		// KASIM 생성 작업 쓰레드 함수
-
 
 	KASIMVER_INFOR					m_stKasimVerInfor;						// 한전 응용소프트웨어 정보 모델 버전 관리
 	HMAP_SC_VARDATA					m_hmVarInfo;							// 한전 응용소프트웨어 정보 모델 필드 변수 정보 관리
@@ -251,6 +256,10 @@ protected:
 	double							m_dKASIM_NULL_ReplaceValue;
 	long long						m_llKASIM_NULL_ReplaceValue;
 	bool							m_bKASIM_AssertMode;
+
+
+
+
 };
 
 #define								theAppDataMng							CPAppDataObjMng::InitInstance()

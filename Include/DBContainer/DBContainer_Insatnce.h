@@ -17,6 +17,8 @@ protected :
 	static CDBContainer_Insatnce*	m_pMngData;												//싱글톤을 전역으로 사용하기 위하여 설정
 
 public:
+	// 초기화
+	bool																					Init();
 	// DB 설정 읽기
 	DB_VECSTR																				LoadingDBConfig();
 
@@ -50,7 +52,10 @@ public:
 	int																						GetDBObjectCount();
 	// 연결 종류 얻기(MSSQL:1, Orcle:2, ADO:3)
 	int																						GetSessionConnectSourceMode( int nIndex );
+
 	bool																					IsCheckDBConnect( int nIndex );
+
+	CDBContainer_Object*																	GetDBConnectObject( int nIndex );
 
 	// 마지막 오류 메세지 남기기
 	CString																					GetLastErrMsg();
@@ -108,6 +113,7 @@ public:
 	void																					SetAutoConnection_Unlock();
 
 	int MariaDB_GetTest();
+	vector<wstring>																				GetFieldNames( int nSourceIndex, const wchar_t* szTableName );
 
 protected : 
 	void																					RemoveData();

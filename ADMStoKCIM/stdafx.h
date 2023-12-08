@@ -101,5 +101,8 @@ using namespace std;
 #endif
 #endif
 
+#ifdef _TESTDEV
+#endif
 
 typedef CArray<int, int&> CIntArray;
+

@@ -197,7 +197,6 @@
   <ItemGroup>
     <ClInclude Include="ADMStoKCIM_Convert.h" />
     <ClInclude Include="ADMStoKCIM_ConvertDlg.h" />
-    <ClInclude Include="framework.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />

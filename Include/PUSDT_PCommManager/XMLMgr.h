@@ -143,7 +143,7 @@ private:
 	MSXML2::IXMLDOMElement*		m_pXMLRoot;			// NULL;
 	MSXML2::IXMLDOMElement*		m_pLastItemAdded;	// NULL;
 
-	_TCHAR*	m_pBuffer;
+//	_TCHAR*	m_pBuffer;
 
 	static CXMLMgr*		m_pThis;
 };

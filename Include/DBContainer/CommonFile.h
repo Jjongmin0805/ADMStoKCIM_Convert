@@ -25,4 +25,14 @@ struct DBBINDContainer
 	DWORD							dwStatus;
 };
 
+enum DBCONTAINER_CONNECTSOURECEMODE
+{
+	CONNECTSOURCEMODE_NONE = 0, 
+	CONNECTSOURCEMODE_MSSQL, 
+	CONNECTSOURCEMODE_ORACLE, 
+	CONNECTSOURCEMODE_MARIADB, 
+	CONNECTSOURCEMODE_SQLITE
+};
+
 #include "./Mysql/Include/mysql.h"
+#include "./Sqlite/Include/sqlite3.h"

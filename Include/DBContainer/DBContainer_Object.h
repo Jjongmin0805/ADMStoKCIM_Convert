@@ -6,6 +6,8 @@ public:
 	CDBContainer_Object(void);
 	~CDBContainer_Object(void);
 
+	void																						SetSourceIndex( int nSourceIndex );
+	int																							GetSourceIndex();
 	void																						SetName( CString szName );
 	CString																						GetName();
 	void																						DisConnect();
@@ -38,10 +40,13 @@ public:
 	CString																						GetConfig_ServerIP();
 	int																							GetConfig_ServerPort();
 
-	int																							GetConnectSoureceMode();
+	int																							GetConnectSourceMode();
 	MYSQL*																						GetMySQLConnData();
+	sqlite3*																					GetSQLiteConnDB();
+	CDBContainer_Object*																		Clone();
 
 protected:
+	int								m_nSourceIndex;						// DBContainer Source 위치
 	CString							m_szName;							// Datasource / Dbname로 구성되어 있다
 	CDataSource*					m_ACMDBConnect;						// MSSQL 연결용
 	CSession*						m_pACMDBSession;					// MSSQL 관리 섹션
@@ -60,9 +65,11 @@ protected:
 	int								m_nServerPort;						// Config Server Port
 
 	MYSQL							m_DBInitConn;
-	MYSQL							*m_pMySQL_DBConn;
+	MYSQL*							m_pMySQL_DBConn;
 
-	int								m_nConnectSoureceMode;				// 연결 종류 설정
+	sqlite3*						m_pPDB_SQLite3_DB;
+
+	int								m_nConnectSourceMode;				// 연결 종류 설정
 };
 
 typedef								vector< CDBContainer_Object* >								VECDBC_OBJ;

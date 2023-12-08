@@ -42,6 +42,9 @@
     <ClCompile Include="CConv_DL_Info.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="CLnsec_Ter.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="ADMStoKCIM.def">
@@ -90,6 +93,12 @@
     </ClInclude>
     <ClInclude Include="CConv_DL_Info.h">
       <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="CLnsec_Ter.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ADMStoKCIM_Convert\framework.h">
+      <Filter>소스 파일</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -178,13 +178,14 @@ void CADMStoKCIMConvertDlg::OnBnClickedButton2()
 	CADMStoKCIMDlg ADMStoKCIMDLG;
 
 
-	//ADMStoKCIMDLG.ADMStoKCIM_Offic_Config(_T("Driver={MariaDB ODBC 3.1 Driver}; Server=127.0.0.1;Database=adms_office_16; UID=root; PWD=1234"));
-	ADMStoKCIMDLG.ADMStoKCIM_Offic_Config(_T("DSN=adms_office; UID=root; PWD=1234;"));
-	ADMStoKCIMDLG.ADMStoKCIM_Code_Config(_T("DSN=adms_code; UID=root; PWD=1234;"));
-	ADMStoKCIMDLG.ADMStoKCIM_CSV_Route(_T("\\0\\"));
-	ADMStoKCIMDLG.m_szADMS_Code.Format(_T("adms_code")); //
+
+// 	ADMStoKCIMDLG.ADMStoKCIM_Offic_Config(_T("DSN=adms_office; UID=root; PWD=1234;"));
+// 	ADMStoKCIMDLG.ADMStoKCIM_Code_Config(_T("DSN=adms_code; UID=root; PWD=1234;"));
+// 	ADMStoKCIMDLG.m_szADMS_Code.Format(_T("adms_code")); //
 	//
-	ADMStoKCIMDLG.ST_CODE(0); //사업소 선택 4520 ? 4530 // 4670영동4810
+
+	ADMStoKCIMDLG.ADMStoKCIM_CSV_Route(_T("\\0\\"));
+	ADMStoKCIMDLG.ST_CODE(0); //사업소 선택 4520 ? 4530 // 4670영동4810----------------4510  -16(4913,4911       -2017/2018/2019/2020    -광주전남 5473
 	ADMStoKCIMDLG.ST_MODE(1); //DUAL = 0 // DUAL/ST = 1;
 
 
@@ -205,13 +206,13 @@ void CADMStoKCIMConvertDlg::OnBnClickedButton3()
 // 	ADMStoKCIMDLG.DoModal();
 
 
-	CADMStoKCIMDlg *ADMStoKCIMDLG = new CADMStoKCIMDlg;
-	ADMStoKCIMDLG->ADMStoKCIM_Offic_Config(_T("DSN=adms_office_23; UID=root; PWD=1234;"));
-	ADMStoKCIMDLG->ADMStoKCIM_Code_Config(_T("DSN=adms_code; UID=root; PWD=1234;"));
-	ADMStoKCIMDLG->ADMStoKCIM_CSV_Route(_T("\\Input_ADMS\\"));
-	ADMStoKCIMDLG->m_szADMS_Code.Format(_T("adms_code")); //
-	ADMStoKCIMDLG->ST_CODE(0); //사업소 선택 4520 ? 4530 // 4670영동
-	ADMStoKCIMDLG->ST_MODE(0); //DUAL = 0 // DUAL/ST = 1;
+// 	CADMStoKCIMDlg *ADMStoKCIMDLG = new CADMStoKCIMDlg;
+// 	ADMStoKCIMDLG->ADMStoKCIM_Offic_Config(_T("DSN=adms_office_23; UID=root; PWD=1234;"));
+// 	ADMStoKCIMDLG->ADMStoKCIM_Code_Config(_T("DSN=adms_code; UID=root; PWD=1234;"));
+// 	ADMStoKCIMDLG->ADMStoKCIM_CSV_Route(_T("\\Input_ADMS\\"));
+// 	ADMStoKCIMDLG->m_szADMS_Code.Format(_T("adms_code")); //
+// 	ADMStoKCIMDLG->ST_CODE(0); //사업소 선택 4520 ? 4530 // 4670영동
+// 	ADMStoKCIMDLG->ST_MODE(0); //DUAL = 0 // DUAL/ST = 1;
 }
 
 void CADMStoKCIMConvertDlg::OnBnClickedButton4()
